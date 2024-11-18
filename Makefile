@@ -1,7 +1,8 @@
 .PHONY : all clean
 
 object = build/main.o build/snaker.o build/snake.o
-LINKFLUG = -Wl,-Bstatic -lraylib -Wl,-Bdynamic -lGL -lm -lpthread -ldl -lrt -lX11
+CFLUG = -s -O3 -Os
+LINKFLUG =-Wl,--gc-sections -Wl,-Bstatic -lraylib -Wl,-Bdynamic -lGL -lm -lpthread -ldl -lrt -lX11
 
 all : snake_raylib
 
@@ -9,7 +10,7 @@ clean :
 	rm build/* main snake_raylib
 
 snake_raylib : $(object)
-	gcc $(object) -o snake_raylib $(LINKFLUG)
+	gcc $(object) $(CFLUG) -o snake_raylib $(LINKFLUG)
 
 build/main.o : main.c snaker.h snake_core/snake.h
 	gcc -c main.c -o $@
