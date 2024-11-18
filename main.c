@@ -1,28 +1,30 @@
 #include "snaker.h"
 
-int zoom = 50;
-const int screenWidth=16;
-const int screenHeight=16;
+int zoom = 20;
+const int screenWidth=54;
+const int screenHeight=37;
 
 int main(){
 	InitWindow(screenWidth * zoom,screenHeight * zoom,"snake raylib");
 
 	SetTargetFPS(60);
 
+GAMESTART:
+	srand((unsigned)time(NULL));
+	initHeadPos(3,3,'>');
+	genfood();
+
 	while(!WindowShouldClose()){
 		BeginDrawing();
 		
 		ClearBackground(RAYWHITE);
 
-		drawpixel(0,0,BLACK);
-		drawpixel(1,1,BLACK);
-		drawpixel(2,2,BLACK);
-		drawpixel(4,3,BLACK);
-		drawpixel(10,10,BLACK);
+		drawWeb();
 
 		EndDrawing();
 	}
 
+GAMEOVER:
 	CloseWindow();
 	return 0;
 }

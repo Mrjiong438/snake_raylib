@@ -1,3 +1,5 @@
-build/
+build/*
 !build/.gitkeep
 main
+snake_raylib
+view.*
