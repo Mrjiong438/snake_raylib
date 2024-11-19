@@ -81,3 +81,74 @@ int drawpixel_P(Position8 pos,Color color){
 	return 0;
 }
 
+int drawnum(int x,int y,char num,Color color){
+	switch (num){
+		case 0:
+			drawbox(x,y,1,5,color);
+			drawbox(x+2,y,1,5,color);
+			drawpixel(x+1,y,color);
+			drawpixel(x+1,y+4,color);
+			break;
+		case 1:
+			drawbox(x+2,y,1,5,color);
+			break;
+		case 2:
+			drawbox(x,y,3,1,color);
+			drawbox(x,y+2,3,1,color);
+			drawbox(x,y+4,3,1,color);
+			drawpixel(x+2,y+1,color);
+			drawpixel(x,y+3,color);
+			break;
+		case 3:
+			drawbox(x,y,3,1,color);
+			drawbox(x,y+2,3,1,color);
+			drawbox(x,y+4,3,1,color);
+			drawpixel(x+2,y+1,color);
+			drawpixel(x+2,y+3,color);
+			break;
+		case 4:
+			drawbox(x,y,1,3,color);
+			drawbox(x+2,y,1,5,color);
+			drawpixel(x+1,y+2,color);
+			break;
+		case 5:
+			drawbox(x,y,3,1,color);
+			drawbox(x,y+2,3,1,color);
+			drawbox(x,y+4,3,1,color);
+			drawpixel(x,y+1,color);
+			drawpixel(x+2,y+3,color);
+			break;
+		case 6:
+			drawbox(x,y,3,1,color);
+			drawbox(x,y+2,3,1,color);
+			drawbox(x,y+4,3,1,color);
+			drawpixel(x,y+1,color);
+			drawpixel(x,y+3,color);
+			drawpixel(x+2,y+3,color);
+			break;
+		case 7:
+			drawbox(x,y,2,1,color);
+			drawbox(x+2,y,1,5,color);
+			break;
+		case 8:
+			drawbox(x,y,1,5,color);
+			drawbox(x+2,y,1,5,color);
+			drawpixel(x+1,y,color);
+			drawpixel(x+1,y+2,color);
+			drawpixel(x+1,y+4,color);
+			break;
+		case 9:
+			drawbox(x,y,3,1,color);
+			drawbox(x,y+2,3,1,color);
+			drawbox(x,y+4,3,1,color);
+			drawpixel(x,y+1,color);
+			drawpixel(x+2,y+1,color);
+			drawpixel(x+2,y+3,color);
+			break;
+			
+	}
+	return 0;
+}
+int drawnum_P(Position8 pos,char num,Color color){
+	return drawnum(pos.x,pos.y,num,color);
+}

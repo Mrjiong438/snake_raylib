@@ -26,3 +26,6 @@ extern int drawbox_P(Position8 pos,int width,int height,Color color);
 
 extern int drawpixel(int x,int y,Color color);
 extern int drawpixel_P(Position8 pos,Color color);
+
+extern int drawnum(int x,int y,char num,Color color);
+extern int drawnum_P(Position8 pos,char num,Color color);

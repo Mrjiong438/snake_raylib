@@ -59,7 +59,7 @@ GAMESTART:
 		BeginDrawing();
 		ClearBackground(RAYWHITE);
 		drawWeb();
-		//drawblock_P(head);
+		
 		drawblock_P(food,RED);
 		drawhead_P(head,map[head.x][head.y]);
 		drawingbody=tail;
@@ -81,6 +81,9 @@ GAMESTART:
 					break;
 			}
 		}
+
+		drawnum(37,3,0,BLACK);
+
 		EndDrawing();
 		frame++;
 	}
