@@ -11,8 +11,8 @@ extern const int screenHeight;
 
 extern int drawWeb();
 
-extern int drawblock(int x,int y);
-extern int drawblock_P(Position8 pos);
+extern int drawblock(int x,int y,Color color);
+extern int drawblock_P(Position8 pos,Color color);
 
 extern int drawbody(int x,int y,char dir);
 extern int drawbody_P(Position8 pos,char dir);

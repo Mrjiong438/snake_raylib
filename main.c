@@ -1,12 +1,17 @@
 #include "snaker.h"
 
+#define SPACETIME 30
+#define SCREENWIDTH 54
+#define SCREENHEIGHT 37
+
 int zoom = 20;
-const int screenWidth=54;
-const int screenHeight=37;
+int key=0,lastkey=0;
+unsigned int frame=1;
+unsigned int gamecount=0;
 Position8 drawingbody={0};
 
 int main(){
-	InitWindow(screenWidth * zoom,screenHeight * zoom,"snake raylib");
+	InitWindow(SCREENWIDTH * zoom,SCREENHEIGHT * zoom,"snake raylib");
 
 	SetTargetFPS(60);
 
@@ -16,12 +21,48 @@ GAMESTART:
 	genfood();
 
 	while(!WindowShouldClose()){
+
+		while(lastkey=GetKeyPressed())
+			key=lastkey;
+
+		switch (key){
+			case KEY_UP:
+				setdirUP();
+				break;
+			case KEY_DOWN:
+				setdirDOWN();
+				break;
+			case KEY_LEFT:
+				setdirLEFT();
+				break;
+			case KEY_RIGHT:
+				setdirRIGHT();
+				break;
+			case KEY_R:
+				resetgame();
+				gamecount++;
+				key=lastkey=0;
+				goto GAMESTART;
+				break;
+		}
+
+		if(frame%SPACETIME==0)
+			switch (change()){
+				case GAMEWIN:
+					goto GAMEOVER;
+					break;
+				case GAMEFAIL:
+					goto GAMEOVER;
+					break;
+			}
+
 		BeginDrawing();
 		ClearBackground(RAYWHITE);
 		drawWeb();
-		drawblock_P(head);
+		//drawblock_P(head);
+		drawblock_P(food,RED);
 		drawingbody=tail;
-		for(int i=0;i<score;i++){
+		for(int i=0;i<score+1;i++){
 			char ch=map[drawingbody.x][drawingbody.y];
 			drawbody_P(drawingbody,ch);
 			switch (ch){
@@ -40,6 +81,7 @@ GAMESTART:
 			}
 		}
 		EndDrawing();
+		frame++;
 	}
 
 GAMEOVER:
