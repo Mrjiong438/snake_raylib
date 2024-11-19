@@ -2,7 +2,8 @@
 #include <stdio.h>
 #include "snake_core/snake.h"
 
-#define MRGRAY (Color){223,223,223,255}
+#define WEBGRAY (Color){223,223,223,255}
+#define EYEGRAY (Color){73,73,73,255}
 #define BLOCKWIDTH 3
 
 extern int zoom;
@@ -16,6 +17,9 @@ extern int drawblock_P(Position8 pos,Color color);
 
 extern int drawbody(int x,int y,char dir);
 extern int drawbody_P(Position8 pos,char dir);
+
+extern int drawhead(int x,int y,char dir);
+extern int drawhead_P(Position8 pos,char dir);
 
 extern int drawbox(int x,int y,int width,int height,Color color);
 extern int drawbox_P(Position8 pos,int width,int height,Color color);

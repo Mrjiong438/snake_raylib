@@ -61,8 +61,9 @@ GAMESTART:
 		drawWeb();
 		//drawblock_P(head);
 		drawblock_P(food,RED);
+		drawhead_P(head,map[head.x][head.y]);
 		drawingbody=tail;
-		for(int i=0;i<score+1;i++){
+		for(int i=0;i<score;i++){
 			char ch=map[drawingbody.x][drawingbody.y];
 			drawbody_P(drawingbody,ch);
 			switch (ch){

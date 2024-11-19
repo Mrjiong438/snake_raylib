@@ -2,4 +2,5 @@ build/*
 !build/.gitkeep
 main
 snake_raylib
+snake_raylib.exe
 view.*
