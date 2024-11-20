@@ -1,5 +1,72 @@
 #include "snaker.h"
 
+int key=0,lastkey=0;
+
+int gaming(){
+
+	if(IsKeyPressed(KEY_Q)){
+		gamestate=STATEGAMEPAUSE;
+		return 0;
+	}
+
+	while(lastkey=GetKeyPressed())
+		key=lastkey;
+
+	switch (key){
+		case KEY_UP:
+			setdirUP();
+			break;
+		case KEY_DOWN:
+			setdirDOWN();
+			break;
+		case KEY_LEFT:
+			setdirLEFT();
+			break;
+		case KEY_RIGHT:
+			setdirRIGHT();
+			break;
+		case KEY_R:
+			resetgame();
+			gamecount++;
+			key=lastkey=0;
+			return GAMERESET;
+	}
+
+	if(frame%SPACETIME==0)
+		return change();
+	return 0;
+}
+
+int pausing(){
+	if(IsKeyPressed(KEY_Q))
+		gamestate=STATEGAMING;
+	return 0;
+}
+
+int drawallbody(){
+	Position8 drawingbody=tail;
+	for(int i=0;i<score;i++){
+		char ch=map[drawingbody.x][drawingbody.y];
+		drawbody_P(drawingbody,ch);
+		switch (ch){
+			case '^':
+				drawingbody.y--;
+				break;
+			case 'v':
+				drawingbody.y++;
+				break;
+			case '<':
+				drawingbody.x--;
+				break;
+			case '>':
+				drawingbody.x++;
+				break;
+		}
+	}
+
+	return 0;
+}
+
 int drawWeb(){
 	for(int i=0;i<9;i++){
 		drawbox(2,2+i*(BLOCKWIDTH+1),33,1,WEBGRAY);
@@ -145,7 +212,7 @@ int drawnum(int x,int y,char num,Color color){
 			drawpixel(x+2,y+1,color);
 			drawpixel(x+2,y+3,color);
 			break;
-			
+
 	}
 	return 0;
 }

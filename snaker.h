@@ -5,10 +5,29 @@
 #define WEBGRAY (Color){223,223,223,255}
 #define EYEGRAY (Color){73,73,73,255}
 #define BLOCKWIDTH 3
+#define SPACETIME 30
+#define SCREENWIDTH 54
+#define SCREENHEIGHT 37
+
+#define GAMERESET 3
+
+#define STATEGAMING 0
+#define STATEGAMEPAUSE 1
+#define STATEGAMEOVER 2
+#define STATEGAMEWIN 3
 
 extern int zoom;
+extern int selectpos;
+extern char gamestate;
+extern unsigned int gamecount;
+extern unsigned int frame;
 extern const int screenWidth;
 extern const int screenHeight;
+
+extern int gaming();
+extern int pausing();
+
+extern int drawallbody();
 
 extern int drawWeb();
 

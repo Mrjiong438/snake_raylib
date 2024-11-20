@@ -1,18 +1,14 @@
 #include "snaker.h"
 
-#define SPACETIME 30
-#define SCREENWIDTH 54
-#define SCREENHEIGHT 37
 
 int zoom = 20;
-int key=0,lastkey=0;
+int selectpos=0;
+char gamestate=STATEGAMING;
 unsigned int frame=1;
 unsigned int gamecount=0;
-Position8 drawingbody={0};
 
 int main(){
 	InitWindow(SCREENWIDTH * zoom,SCREENHEIGHT * zoom,"snake raylib");
-
 	SetTargetFPS(60);
 
 GAMESTART:
@@ -22,73 +18,45 @@ GAMESTART:
 
 	while(!WindowShouldClose()){
 
-		while(lastkey=GetKeyPressed())
-			key=lastkey;
+		switch (gamestate){
+			case STATEGAMING:
+				switch (gaming()){
+					case GAMEWIN:
+					case GAMEFAIL:
+						goto GAMEEND;
+					case GAMERESET:
+						goto GAMESTART;
 
-		switch (key){
-			case KEY_UP:
-				setdirUP();
+				}
 				break;
-			case KEY_DOWN:
-				setdirDOWN();
+			case STATEGAMEPAUSE:
+				pausing();
 				break;
-			case KEY_LEFT:
-				setdirLEFT();
-				break;
-			case KEY_RIGHT:
-				setdirRIGHT();
-				break;
-			case KEY_R:
-				resetgame();
-				gamecount++;
-				key=lastkey=0;
-				goto GAMESTART;
-				break;
+
 		}
-
-		if(frame%SPACETIME==0)
-			switch (change()){
-				case GAMEWIN:
-					goto GAMEOVER;
-					break;
-				case GAMEFAIL:
-					goto GAMEOVER;
-					break;
-			}
 
 		BeginDrawing();
 		ClearBackground(RAYWHITE);
 		drawWeb();
-		
+
 		drawblock_P(food,RED);
 		drawhead_P(head,map[head.x][head.y]);
-		drawingbody=tail;
-		for(int i=0;i<score;i++){
-			char ch=map[drawingbody.x][drawingbody.y];
-			drawbody_P(drawingbody,ch);
-			switch (ch){
-				case '^':
-					drawingbody.y--;
-					break;
-				case 'v':
-					drawingbody.y++;
-					break;
-				case '<':
-					drawingbody.x--;
-					break;
-				case '>':
-					drawingbody.x++;
-					break;
-			}
-		}
-
+		drawallbody();
 		drawnum(37,3,0,BLACK);
+
+		switch (gamestate){
+			case STATEGAMEPAUSE:
+				DrawRectangle(0,0,SCREENWIDTH * zoom,SCREENHEIGHT * zoom,(Color) {0,0,0,155});
+				for(int i=1;i<SCREENHEIGHT;i+=4)
+					drawbox(0,i,SCREENWIDTH,1,(Color) {0,0,0,100});
+				break;
+		}
 
 		EndDrawing();
 		frame++;
 	}
 
-GAMEOVER:
+GAMEEND:
 	CloseWindow();
 	return 0;
-}
+	}
